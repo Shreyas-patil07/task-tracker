@@ -10,8 +10,8 @@ const app = express();
 
 connectDB();
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(",")
   : ["http://localhost:5173", "http://localhost:4173"];
 
 app.use(
