@@ -42,7 +42,10 @@ app.get("/", (req, res) => {
     message: "Task Tracker API is running 🚀",
   });
 });
-
+app.use((err, req, res, next) => {
+  console.error(err);
+  next(err);
+});
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
