@@ -12,18 +12,23 @@ connectDB();
 
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",")
-  : ["http://localhost:5173", "http://localhost:4173"];
+  : ["http://localhost:5173", "https://task-tracker-nine-eta.vercel.app"];
+
+console.log("Allowed Origins:", allowedOrigins);  
+console.log("Environment:", process.env.NODE_ENV);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS: origin ${origin} not allowed`));
-      }
-    },
+    console.log("Incoming Origin:", origin);
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("Blocked Origin:", origin);
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    }
+  },
     credentials: true,
   })
 );
