@@ -11,17 +11,22 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   const fetchTasks = async () => {
-    setLoading(true);
-    try {
-      const response = await api.get("/tasks");
-      setTasks(response.data.data);
-    } catch (error) {
-      toast.error("Failed to load tasks. Please try again.");
-      console.error("Error fetching tasks:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const response = await api.get("/tasks");
+
+    console.log("API Response:", response.data);
+    console.log("Is Array:", Array.isArray(response.data.data));
+
+    setTasks(
+      Array.isArray(response.data.data)
+        ? response.data.data
+        : []
+    );
+  } catch (error) {
+    console.error(error);
+    setTasks([]);
+  }
+};
 
   const createTask = async (taskData) => {
     try {
@@ -74,9 +79,10 @@ function Home() {
       console.error(error);
     }
   };
+  
 
   useEffect(() => {
-    fetchTasks();
+    fetchTasks(); 
   }, []);
 
   return (

@@ -7,9 +7,11 @@ function TaskList({ tasks, onDelete, onEdit, onToggleStatus, loading }) {
   const [filterStatus, setFilterStatus] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("newest");
+  console.log("Tasks:", tasks);
+console.log("Is Array:", Array.isArray(tasks));
 
   const filtered = useMemo(() => {
-    let result = [...tasks];
+    let result = Array.isArray(tasks) ? [...tasks] : [];
 
     // Search by title or description
     if (search.trim()) {
