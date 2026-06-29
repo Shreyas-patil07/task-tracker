@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: task-tracker-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false   # set this manually in Render dashboard
