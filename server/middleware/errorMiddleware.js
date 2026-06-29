@@ -1,14 +1,17 @@
 const errorHandler = (err, req, res, next) => {
+  console.error("========== ERROR ==========");
+  console.error(err);
+  console.error(err.stack);
+  console.error("===========================");
+
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
-  // Invalid MongoDB ObjectId
   if (err.name === "CastError") {
     statusCode = 400;
     message = "Invalid task ID";
   }
 
-  // Mongoose validation errors
   if (err.name === "ValidationError") {
     statusCode = 400;
     message = Object.values(err.errors)

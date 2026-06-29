@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const errorHandler = require("./middleware/errorMiddleware");
 const cors = require("cors");
@@ -9,6 +10,13 @@ const taskRoutes = require("./routes/taskRoutes");
 const app = express();
 
 connectDB();
+mongoose.connection.on("connected", () => {
+  console.log("Mongo Connected");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("Mongo Error:", err);
+});
 
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",")
